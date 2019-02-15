@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="/../css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="/../css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="/../css/style.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="/../css/mailbox.css" rel="stylesheet">
+
+  <!-- Your custom styles (optional) -->
+  <link href="/../css/mailbox/sequences/newsequence.css" rel="stylesheet">
+
+  <link rel="canonical" href="https://mdbootstrap.com/docs/jquery/forms/switch/" />
+
+</head>
+
+<body class="grey lighten-3">
+
+  <!--Main Navigation-->
+  <header>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container-fluid">
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav m-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/table">Table </span></a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="/mailbox">Mailbox <span class="sr-only">(current)</span></a>
+              </li>    
+        </div>
+
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Sidebar -->
+    <div class="sidebar-fixed position-fixed">
+
+      <a class="logo-wrapper waves-effect">
+        <img src="/../img/email_logo/logo-black-text-vert.svg" class="img-fluid" style="width:190px; height:150px;" alt="">
+      </a>
+
+      <div class="list-group list-group-flush">
+        <a href="/mailbox" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-chart-pie mr-3"></i>Dashboard
+        </a>
+        <a href="/mailbox/inbox" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-table mr-3"></i>InBox</a>
+        <a href="/mailbox/campaigns" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-user mr-3"></i>Campaigns</a>
+        <a href="/mailbox/templates" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-table mr-3"></i>Email Templates</a>
+        <a href="/mailbox/sequences" class="list-group-item active waves-effect">
+          <i class="fas fa-map mr-3"></i>Email Sequences</a>
+        <a href="/mailbox/unsubscribed" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-money-bill-alt mr-3"></i>Unsubscribed</a>
+        <a href="/mailbox/queue" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-money-bill-alt mr-3"></i>Mail Queue</a>
+      </div>
+      <hr>
+      <div class="list-group list-group-flush">
+          <a href="/mailbox/accounts" class="list-group-item list-group-item-action waves-effect">
+              <i class="fas fa-table mr-3"></i>Email Accounts</a>
+          <a href="/mailbox/members" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-user mr-3"></i>Member's Content</a>
+          <a href="/mailbox/helpcenter" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-table mr-3"></i>Help Center</a>
+      </div>
+
+    </div>
+    <!-- Sidebar -->
+
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <span>Sequence Editor</span>
+          </h4>
+        </div>
+
+      </div>
+      <!-- Heading -->
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+          <form>
+            <!-- Material input -->
+            <div class="md-form form-group mt-5">
+              <input type="text" class="form-control" id="formGroupExampleInputMD" placeholder="Enter a Title for This Sequence">
+              <label for="formGroupExampleInputMD">Title: </label>
+            </div>
+
+            <!-- Material input -->
+            <div class="md-form form-group mt-5">
+              <input type="text" class="form-control" id="formGroupExampleInput2MD" placeholder="Enter a Description for This Sequence">
+              <label for="formGroupExampleInput2MD">Description: </label>
+            </div>
+
+            <!-- Default switch 
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitches1">
+              <label class="custom-control-label" for="customSwitches1">Thread Replies</label>
+            </div>
+
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitches">
+              <label class="custom-control-label" for="customSwitches">Stop Sequence on Reply</label>
+            </div>-->
+
+            <!-- Vertical Steppers -->
+            <div class="row mt-1">
+              <div class="col-md-12">
+            
+                <!-- Stepers Wrapper -->
+                <ul class="stepper stepper-vertical">
+            
+                  <!-- First Step -->
+                  <li class="completed">
+                    <a>
+                      <span class="circle">1</span>
+                    </a>
+                    <!-- Section Description -->
+                    <div class="step-content grey lighten-3">
+                        <section class="mb-4">
+                          <div class="row">
+                      
+                              <!--Grid column-->
+                              <div class="col-md-12 mb-md-0 mb-12">
+                                  <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+                                      <!--Grid row-->
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                              <!-- Default form group -->
+                                              <form>
+                                              <!-- Default input -->
+                                              <div class="form-group">
+                                              <label for="formGroupExampleInput">Subject:</label>
+                                              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="This is one email">
+                                              </div>
+                                              </form>
+                                              <!-- Default form group -->
+                                          </div>
+                                      </div>
+                                      <!--Grid row-->
+                      
+                                      <!--Grid row-->
+                                      <div class="row">
+                      
+                                          <!--Grid column-->
+                                          <div class="col-md-12">
+                                              <textarea id="demoCustomPalette1" style="width: 0px; height: 0px; visibility: hidden;">                                              </textarea>
+                                              <div class="mdb-wysiwyg-container">
+                                                <div class="mdb-wysiwyg-toolbar">
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <div class="mdb-wysiwyg-toolbar-dropdown">
+                                                      <button class="mdb-wysiwyg-toolbar-dropdown-toggle"><span>Paragraph</span></button>
+                                                      <ul class="mdb-wysiwyg-toolbar-options-list">
+                                                        <li><a href="#" data-tagname="p">Paragraph</a></li>
+                                                        <li><a href="#" data-tagname="h1">Heading 1</a></li>
+                                                        <li><a href="#" data-tagname="h2">Heading 2</a></li>
+                                                        <li><a href="#" data-tagname="h3">Heading 3</a></li>
+                                                        <li><a href="#" data-tagname="h4">Heading 4</a></li>
+                                                        <li><a href="#" data-tagname="h5">Heading 5</a></li>
+                                                        <li><a href="#" data-tagname="h6">Heading 6</a></li>
+                                                        <li><a href="#" data-tagname="pre">Preformatted</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="bold" data-tooltip="" data-placement="bottom" title="" data-original-title="Bold"><i class="fas fa-bold"></i></button></li>
+                                                      <li><button data-action="italic" data-tooltip="" data-placement="bottom" title="" data-original-title="Italic"><i class="fas fa-italic"></i></button></li>
+                                                      <li><button data-action="strikethrough" data-tooltip="" data-placement="bottom" title="" data-original-title="Strikethrough"><i class="fas fa-strikethrough"></i></button></li>
+                                                      <li><button data-action="underline" data-tooltip="" data-placement="bottom" title="" data-original-title="Underline"><i class="fas fa-underline"></i></button></li>
+                                                      <li>
+                                                        <button data-tooltip="" data-placement="bottom" title="" class="mdb-wysiwyg-toolbar-dropdown-toggle" data-original-title="Color"><i class="fas fa-font"></i></button>
+                                                        <ul class="mdb-wysiwyg-toolbar-options-list mdb-wysiwyg-toolbar-color-palette">
+                                                          <li><button data-color="#d50000" style="background: #d50000;"></button></li><li><button data-color="#64dd17" style="background: #64dd17;"></button></li><li><button data-color="#fff176" style="background: #fff176;"></button></li><li><button data-color="#03a9f4" style="background: #03a9f4;"></button></li><li><button data-color="#6a1b9a" style="background: #6a1b9a;"></button></li><li><button data-color="#fff" style="background: #fff;"></button></li><li><button data-color="#000" style="background: #000;"></button></li>
+                                                        </ul>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="justifyleft" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Left" class="active"><i class="fas fa-align-left"></i></button></li>
+                                                      <li><button data-action="justifycenter" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Center"><i class="fas fa-align-center"></i></button></li>
+                                                      <li><button data-action="justifyright" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Right"><i class="fas fa-align-right"></i></button></li>
+                                                      <li><button data-action="justifyfull " data-tooltip="" data-placement="bottom" title="" data-original-title="Align Justify"><i class="fas fa-align-justify"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="insertlink" data-tooltip="" data-placement="bottom" title="" data-original-title="Insert Link"><i class="fas fa-paperclip"></i></button></li>
+                                                      <li><button data-action="insertpicture" data-tooltip="" data-placement="bottom" title="" data-original-title="Insert Picture"><i class="far fa-image"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="insertUnorderedList" data-tooltip="" data-placement="bottom" title="" data-original-title="Ordered List"><i class="fas fa-list-ul"></i></button></li>
+                                                      <li><button data-action="insertOrderedList" data-tooltip="" data-placement="bottom" title="" data-original-title="Numbered List"><i class="fas fa-list-ol"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="toggleHTML" data-tooltip="" data-placement="bottom" title="" data-original-title="Show HTML code"><i class="fas fa-code"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                                <div class="mdb-wysiwyg-textarea" contenteditable="true" id="wysiwyg-a8025032-a758-4143-ac3a-97f09ee86b41" data-gramm_id="729f59a0-1b8e-e887-04df-1806e4aac313" data-gramm="true" spellcheck="false" data-gramm_editor="true">                                              </div><grammarly-btn><div class="_1BN1N Kzi1t MoE_1 _2DJZN" style="z-index: 2; transform: translate(996.078px, 355px);"><div class="_1HjH7"><div title="Protected by Grammarly" class="_3qe6h">&nbsp;</div></div></div></grammarly-btn>
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!--Grid row-->
+                      
+                                  </form>
+                                  <div class="status"></div>
+                              </div>
+                              <!--Grid column-->
+                          </div>
+                        </section>
+                    </div>
+                    <!--Section: Contact v.2-->
+                    
+                    <!-- /. Section: Contact v.2-->
+                  </li>
+
+                  <!-- Second Step -->
+                  <li class="completed">
+                      <a>
+                        <span class="circle">2</span>
+                      </a>
+                      <!-- Section Description -->
+                      <div class="step-content grey lighten-3">
+                          <section class="mb-4">
+                            <div class="row">
+                        
+                                <!--Grid column-->
+                                <div class="col-md-12 mb-md-0 mb-12">
+                                    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+                                        <!--Grid row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Default form group -->
+                                                <form>
+                                                <!-- Default input -->
+                                                <div class="form-group">
+                                                <label for="formGroupExampleInput">Subject:</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="This is one email">
+                                                </div>
+                                                </form>
+                                                <!-- Default form group -->
+                                            </div>
+                                        </div>
+                                        <!--Grid row-->
+                        
+                                        <!--Grid row-->
+                                        <div class="row">
+                        
+                                          <!--Grid column-->
+                                          <div class="col-md-12">
+                                              <textarea id="demoCustomPalette2" style="width: 0px; height: 0px; visibility: hidden;">                                              </textarea>
+                                              <div class="mdb-wysiwyg-container">
+                                                <div class="mdb-wysiwyg-toolbar">
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <div class="mdb-wysiwyg-toolbar-dropdown">
+                                                      <button class="mdb-wysiwyg-toolbar-dropdown-toggle"><span>Paragraph</span></button>
+                                                      <ul class="mdb-wysiwyg-toolbar-options-list">
+                                                        <li><a href="#" data-tagname="p">Paragraph</a></li>
+                                                        <li><a href="#" data-tagname="h1">Heading 1</a></li>
+                                                        <li><a href="#" data-tagname="h2">Heading 2</a></li>
+                                                        <li><a href="#" data-tagname="h3">Heading 3</a></li>
+                                                        <li><a href="#" data-tagname="h4">Heading 4</a></li>
+                                                        <li><a href="#" data-tagname="h5">Heading 5</a></li>
+                                                        <li><a href="#" data-tagname="h6">Heading 6</a></li>
+                                                        <li><a href="#" data-tagname="pre">Preformatted</a></li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="bold" data-tooltip="" data-placement="bottom" title="" data-original-title="Bold"><i class="fas fa-bold"></i></button></li>
+                                                      <li><button data-action="italic" data-tooltip="" data-placement="bottom" title="" data-original-title="Italic"><i class="fas fa-italic"></i></button></li>
+                                                      <li><button data-action="strikethrough" data-tooltip="" data-placement="bottom" title="" data-original-title="Strikethrough"><i class="fas fa-strikethrough"></i></button></li>
+                                                      <li><button data-action="underline" data-tooltip="" data-placement="bottom" title="" data-original-title="Underline"><i class="fas fa-underline"></i></button></li>
+                                                      <li>
+                                                        <button data-tooltip="" data-placement="bottom" title="" class="mdb-wysiwyg-toolbar-dropdown-toggle" data-original-title="Color"><i class="fas fa-font"></i></button>
+                                                        <ul class="mdb-wysiwyg-toolbar-options-list mdb-wysiwyg-toolbar-color-palette">
+                                                          <li><button data-color="#d50000" style="background: #d50000;"></button></li><li><button data-color="#64dd17" style="background: #64dd17;"></button></li><li><button data-color="#fff176" style="background: #fff176;"></button></li><li><button data-color="#03a9f4" style="background: #03a9f4;"></button></li><li><button data-color="#6a1b9a" style="background: #6a1b9a;"></button></li><li><button data-color="#fff" style="background: #fff;"></button></li><li><button data-color="#000" style="background: #000;"></button></li>
+                                                        </ul>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="justifyleft" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Left" class="active"><i class="fas fa-align-left"></i></button></li>
+                                                      <li><button data-action="justifycenter" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Center"><i class="fas fa-align-center"></i></button></li>
+                                                      <li><button data-action="justifyright" data-tooltip="" data-placement="bottom" title="" data-original-title="Align Right"><i class="fas fa-align-right"></i></button></li>
+                                                      <li><button data-action="justifyfull " data-tooltip="" data-placement="bottom" title="" data-original-title="Align Justify"><i class="fas fa-align-justify"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="insertlink" data-tooltip="" data-placement="bottom" title="" data-original-title="Insert Link"><i class="fas fa-paperclip"></i></button></li>
+                                                      <li><button data-action="insertpicture" data-tooltip="" data-placement="bottom" title="" data-original-title="Insert Picture"><i class="far fa-image"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="insertUnorderedList" data-tooltip="" data-placement="bottom" title="" data-original-title="Ordered List"><i class="fas fa-list-ul"></i></button></li>
+                                                      <li><button data-action="insertOrderedList" data-tooltip="" data-placement="bottom" title="" data-original-title="Numbered List"><i class="fas fa-list-ol"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="mdb-wysiwyg-toolbar-group">
+                                                    <ul class="mdb-wysiwyg-toolbar-options">
+                                                      <li><button data-action="toggleHTML" data-tooltip="" data-placement="bottom" title="" data-original-title="Show HTML code"><i class="fas fa-code"></i></button></li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                                <div class="mdb-wysiwyg-textarea" contenteditable="true" id="wysiwyg-a8025032-a758-4143-ac3a-97f09ee86b41" data-gramm_id="729f59a0-1b8e-e887-04df-1806e4aac313" data-gramm="true" spellcheck="false" data-gramm_editor="true">                                              </div><grammarly-btn><div class="_1BN1N Kzi1t MoE_1 _2DJZN" style="z-index: 2; transform: translate(996.078px, 355px);"><div class="_1HjH7"><div title="Protected by Grammarly" class="_3qe6h">&nbsp;</div></div></div></grammarly-btn>
+
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <!--Grid row-->
+                        
+                                    </form>
+                                    <div class="status"></div>
+                                </div>
+                                <!--Grid column-->
+                            </div>
+                          </section>
+                      </div>
+                      <!--Section: Contact v.2-->
+                      
+                      <!-- /. Section: Contact v.2-->
+                  </li>
+
+                </ul>
+                <!-- /.Stepers Wrapper -->
+            
+              </div>
+            </div>
+            
+            <!-- Steppers Navigation 
+            <div class="row mt-1">
+              <div class="col-md-12 text-right">
+                <button class="btn btn-flat btn-sm">Cancel</button>
+                <button class="btn btn-primary btn-sm">Next</button>
+              </div>
+            </div>
+            !-- /.Vertical Steppers -->
+
+          </form>
+          
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="/../js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="/../js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="/../js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="/../js/mdb.min.js"></script>
+
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+  </script>
+  <!-- xysiwyg editor javascript-->
+  <script src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/wysiwyg.min.js"></script>
+  <script>
+      $("#demoCustomPalette").mdbWYSIWYG({
+            colorPalette: {
+                red: '#d50000',
+                green: '#64dd17',
+                yellow: '#fff176',
+                blue: '#03a9f4',
+                purple: '#6a1b9a',
+                white: '#fff',
+                black: '#000'
+            }
+        });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+.view {
+    background: linear-gradient(141deg, #dc04fc 0%, #dc04fc 20%, #7f04fc 75%);
+    background-size: cover;
+}
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+#preloader{
+  background-color: black;
+  opacity: 0.5;
+  z-index: 99999;
+  position: absolute;
+  width: 100%;
+}
+
+a.download_link{
+  text-decoration: underline;
+  color: white;
+}

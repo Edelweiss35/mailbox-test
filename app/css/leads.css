@@ -1,0 +1,83 @@
+.md-form{
+    margin-bottom: 0px;
+}
+td{
+    font-size: 0.8rem !important;
+}
+div.leadsContainer{
+    padding: 0 50px;
+}
+#spinner.hide-opacity{
+    opacity: 0;
+}
+
+body{
+    min-width: 1700px;
+}
+#spinner {
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+     opacity: 1;
+}
+
+.modal-body hr{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+table.table thead th{
+    border: 1px solid #dee2e6;
+}
+
+thead th div.md-form{
+    margin-top: 0px;
+}
+div#linkContainer{
+    display: flex;
+}
+div#linkContainer div{
+    flex: auto;
+}
+span#check_all{
+    text-decoration: underline;
+    cursor: pointer;
+} 
+
+tr.delClass, tr.delClass a{
+    color: red;
+}
+
+.navbar-bg-color{
+    background-color: #7f04fc;
+}
+.modal-header-color{
+    background-color: #662d91;
+    color: white;
+}
+button.btn-modal-close{
+    background-color: #7f04fc !important;
+}
+
+.modal-fullwidth{
+    max-width: 1000px;
+}
+
+.md-form input.form-control { /* This is for the placeholder */
+    font-family: 'Font Awesome 5 Free', Arial;
+    font-weight: 600;
+    margin: 0px;
+}
+div.bootstrap-select button{
+    padding: .375rem .75rem;
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
+    margin: 0px;
+}
+
+.carousel .carousel-control-next-icon, .carousel .carousel-control-prev-icon {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+}

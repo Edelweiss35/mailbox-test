@@ -1,0 +1,46 @@
+.tr-color-selected {
+	background-color: hsla(196, 77%, 55%, 0.3) !important;
+	transition: all .2s ease-in;
+}
+
+th.td1_width {
+	width: 70%;
+	float: left;
+}
+
+th.td2_width {
+	width: 14%;
+	float: left;
+}
+
+th.td3_width {
+	width: 8%;
+	float: left;
+}
+
+.th {
+	float: left;
+}
+
+.tr-color-selected{
+	background-color: hsla(196, 77%, 55%, 0.3) !important;
+	transition: all .2s ease-in;
+	}
+
+.btn-outline-default {
+	border: 2px solid #6258A8!important;
+    background-color: transparent!important;
+    color: #6258A8!important;
+}
+.btn-teal {
+    background-color: transparent!important;
+	color: #6258A8!important;
+	border: 2px solid #6258A8!important;
+}
+.progress-bar {
+    background-color: #6258A8;
+}
+.google-icon {
+	width: 30px;
+	height: 30px;
+}
