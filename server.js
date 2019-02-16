@@ -10,14 +10,17 @@ var path = require('path');
 var nodeMailer = require('nodemailer');
 var popup_tools = require('popup-tools');
 var passport = require('passport');
- //var GoogleStrategy = require('passport-google-auth').OAuth2Strategy;
+const {google} = require('googleapis');
+
+ 
  var passportOAuth2 = require('passport-oauth2');
- var passportGoogle = require('passport-google-auth');
+ //var passportGoogle = require('passport-google-auth');
  var OAuth2Strategy = passportOAuth2.Strategy;
- var GoogleStrategy = passportGoogle.Strategy;
+ //var GoogleStrategy = passportGoogle.Strategy;
  var SibApiV3Sdk = require('sib-api-v3-sdk');
  var defaultClient = SibApiV3Sdk.ApiClient.instance;
 
+ GoogleStrategy = require('passport-google-oauth2').Strategy; 
 var app = express();
 app.set('view engine', 'ejs');
 
@@ -25,6 +28,7 @@ app.set('view engine', 'ejs');
 var { mongoDB } = require('./config');
 var Sheet = require('./models/Sheet');
 var ExDomain = require('./models/ExDomain');
+var User = require('./models/Account');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -105,74 +109,104 @@ app.post('/fileupload', async function (req, res) {
   console.log('Saved all data');
   res.end('Saved');
 });
-
-
 // start-gmail-config-part
  // 
-app.get('/google/authorize',  passport.authenticate('google', {scope : ['profile', 'email'] }));
+app.get('/google/authorize',  passport.authenticate('google', {scope : [
+  'profile',
+  'email',
+  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/gmail.compose',
+  'https://mail.google.com/',
+  'https://www.googleapis.com/auth/gmail.insert',
+  'https://www.googleapis.com/auth/gmail.labels',
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://www.googleapis.com/auth/gmail.readonly',
+  'https://www.googleapis.com/auth/gmail.modify',
+  'https://www.googleapis.com/auth/gmail.settings.basic'
+] }));
+app.get('/google/callback',passport.authenticate('google', {successRedirect : '/mailbox/accounts/add',failureRedirect : '/'}));
 passport.use(new GoogleStrategy({
-  clientId        : "586730579812-dnldjtg5icqpl1nrbkrav09sisn0qtlr.apps.googleusercontent.com",
-  clientSecret    : "eeW7wQzLahS8H_nescAh8vjb",
-  callbackURL     : "http://cuteleads.herokuapp.com/google/callback",
- // callbackURL     : "http://127.0.0.1:8080/google/callback",
+  clientID        : "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
+  clientSecret    : "ejpJaeagoaYm0QKy3Pz82msk",
+  //callbackURL     : "http://cuteleads.herokuapp.com/google/callback",
+  callbackURL     : "http://127.0.0.1:8080/google/callback",
 },
 function(token, refreshToken, profile, done) {
 
   // make the code asynchronous
   // User.findOne won't fire until we have all our data back from Google
-  console.log("");
+  process.nextTick(function(){
+    
+    // try to find the user based on thier google id
+    User.findOne({'id': profile.id}, function(err, user){
+      if (err)
+        return done(err);
+      console.log("token= " + token + " " + "refreshToken= " + refreshToken);
+      if (user){
+        // if a user is found, log them in
+        /*** get message list api test code                         */
+        const oAuth2Client = new google.auth.OAuth2(
+          "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
+          "ejpJaeagoaYm0QKy3Pz82msk",
+          "http://127.0.0.1:8080/google/callback"
+        )
+               
+        oAuth2Client.credentials = {access_token: token}
+        const gmail = google.gmail({version: 'v1'});
+        gmail.users.messages.list({ userId: user.id, auth: oAuth2Client },
+            function(err, response) {
+              console.log(response.data)
+              res.send(response);
+          });
+       /***************************************************** */   
+        //return done(null, user);
+      }else{
+        // if the user isnt in our database, create a new user
+        var newUser          = new User();
 
-    var searchQuery = {
-      'google.id': profile.id
-    }
-    var updates = {
-      'google.token': token,
-      'google.name':profile.displayName,
-      'google.email':profile.emails[0].value
-    };
-    var options = {
-      upsert: true,
-      new: true
-    };
-        // update the user if s/he exists or add a new user
-    // User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
-    //   if(err) {
-    //     return done(err);
-    //   } 
-    //   else {
-    //     return done(null, user);
-    //   }
-    // })
-    var user = {
-      'id': profile.id
-    }
-    return done(null, user);
-  }
+        // set all of the relevant information
+        newUser.id    = profile.id;
+        newUser.token = token;
+        newUser.name  = profile.displayName;
+        newUser.email = profile.emails[0].value; // pull the first email
+
+         // save the user
+         newUser.save(function(err) {
+          if (err)
+              throw err;
+          return done(null, newUser);
+        });
+      }
+
+    })
+  })}
 ));
-
-app.get('/google/callback',passport.authenticate('google', {successRedirect : '/mailbox/accounts/add',failureRedirect : '/'},
-   function(req, res) {
-     // Successul authentication, redirect home.
-     console.log(req);
-     res.set({ "content-type": "text/html; charset=utf-8" });
-     res.end(popupTools.popupResponse(req.user));
-   }
-));
-
 
 passport.serializeUser(function(user, done) {
-  console.log("called serializeUser");
-  //done(null, user);
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  // console.log("called deserializeUser");
-  //  User.findById(id, (err, user) => {
-  //    done(null, null); 
-//   });
-  done(null, id)
+    User.findById(id, (err, user) => {
+      done(err, user); 
+   });
 });
+
+app.get('/google/gmailInbox', async function(req, res){
+  const oAuth2Client = new google.auth.OAuth2(
+    "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
+    "ejpJaeagoaYm0QKy3Pz82msk",
+    "http://127.0.0.1:8080/google/callback"
+  )
+  oAuth2Client.credentials = {access_token: token}
+  const gmail = google.gmail({version: 'v1'});
+  gmail.users.messages.list({ userId: user.id, auth: oAuth2Client },
+      function(err, response) {
+        console.log(response.message)
+        res.json(response.data);
+    });
+})
+
 // end-gmail-config-part
 
 
