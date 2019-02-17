@@ -29,6 +29,7 @@ var { mongoDB } = require('./config');
 var Sheet = require('./models/Sheet');
 var ExDomain = require('./models/ExDomain');
 var User = require('./models/Account');
+var Campaign = require('./models/Campaign');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -146,20 +147,21 @@ function(token, refreshToken, profile, done) {
         // if a user is found, log them in
         /*** get message list api test code                         */
         const oAuth2Client = new google.auth.OAuth2(
-          "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
-          "ejpJaeagoaYm0QKy3Pz82msk",
+          "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
+          "4KUG-B_pIN_GHqMISTz2sOuN",
           "http://127.0.0.1:8080/google/callback"
         )
                
         oAuth2Client.credentials = {access_token: token}
         const gmail = google.gmail({version: 'v1'});
-        gmail.users.messages.list({ userId: user.id, auth: oAuth2Client },
+      //  gmail.users.getProfile({ userId: user.id, auth: oAuth2Client },
+        gmail.users.messages.list({ userId: user.id, auth: oAuth2Client,q:'before:2019/02/15 after:2019/02/01' },
             function(err, response) {
               console.log(response.data)
               res.send(response);
           });
        /***************************************************** */   
-        //return done(null, user);
+        //return done(null, user);-
       }else{
         // if the user isnt in our database, create a new user
         var newUser          = new User();
@@ -194,19 +196,69 @@ passport.deserializeUser(function(id, done) {
 
 app.get('/google/gmailInbox', async function(req, res){
   const oAuth2Client = new google.auth.OAuth2(
-    "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
-    "ejpJaeagoaYm0QKy3Pz82msk",
+    "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
+    "4KUG-B_pIN_GHqMISTz2sOuN",
     "http://127.0.0.1:8080/google/callback"
   )
   oAuth2Client.credentials = {access_token: token}
   const gmail = google.gmail({version: 'v1'});
-  gmail.users.messages.list({ userId: user.id, auth: oAuth2Client },
+  gmail.users.getProfile({ userId: user.id, auth: oAuth2Client },
       function(err, response) {
-        console.log(response.message)
+        console.log(response.data)
         res.json(response.data);
     });
 })
 
+app.post('/mailbox/accounts', function (req, res) {
+  var nCnt = 0;
+  nCnt =  User.count();
+  
+});
+
+app.post('/mailbox/campaigns', function (req, res) {
+  let transporter = nodeMailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+          user: 'cui2020high@gmail.com',
+          pass: 'skwgkftys123456789'
+      }
+  });
+  let mailOptions = {
+      from: '"Krunal Lathiya" <elisakylie0618@outlook.com>', // sender address
+      to: req.body.to, // list of receivers
+      subject: req.body.subject, // Subject line
+      text: req.body.body, // plain text body
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+
+      console.log('Message %s sent: %s', info.messageId, info.response);
+
+      var newCampaign = new Campaign();yeah
+
+      // set all of the relevant information
+      newCampaign.user = 'cui2020high@gmail.com';
+      newCampaign.namefrom = 'Krunal Lathiya';
+      newCampaign.emailaddressfrom = 'elisakylie0618@outlook.com';
+      newCampaign.to = req.body.to;
+      newCampaign.subject = req.body.subject;
+      newCampaign.text = req.body.body;
+
+       // save the campaign
+       newCampaign.save(function(err) {
+        if (err)
+            throw err;
+        return res.render(path.join(__dirname, './views/mailbox/campaigns'));
+      });
+
+          res.render(path.join(__dirname, './views/mailbox/campaigns'));
+      });
+  });
 // end-gmail-config-part
 
 

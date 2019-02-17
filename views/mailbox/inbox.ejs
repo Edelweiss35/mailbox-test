@@ -16,6 +16,10 @@
   <link href="/../css/style.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="/../css/mailbox.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="/../css/mailbox/inbox.css" rel="stylesheet">
+
+  <link rel="canonical" href="https://mdbootstrap.com/plugins/jquery/table-editor/">
 </head>
 
 <body class="grey lighten-3">
@@ -42,7 +46,7 @@
                 <a class="nav-link" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/table">Table </span></a>
+                <a class="nav-link" href="/leads">Leads </span></a>
               </li>
               <li class="nav-item active">
                   <a class="nav-link" href="/mailbox">Mailbox <span class="sr-only">(current)</span></a>
@@ -125,14 +129,81 @@
 
       <!--Grid row-->
       <div class="row wow fadeIn">
-
         <!--Grid column-->
-        <div class="col-md-12 mb-4">
-
-          inbox page content
-
+        <div class="container">
+          <div class="row">
+            <div class="col-2">
+                <div class="list-group">
+                    <h6>gmail address</h6>
+                    <button type="button" class="btn btn-outline-secondary waves-effect">
+                      ALL
+                      <span class="badge badge-primary badge-pill">14</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect">
+                      INTERESTER
+                      <span class="badge badge-primary badge-pill">14</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect">
+                      MAYBE LATER
+                      <span class="badge badge-primary badge-pill">14</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect">
+                      NOT INTERESTED
+                      <span class="badge badge-primary badge-pill">14</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect">
+                      AUTOREPLIED
+                      <span class="badge badge-primary badge-pill">14</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                  <table id="tablePreview" class="table table-sm table-hover">
+                      <!--Table head-->
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>username</th>
+                            <th>email address</th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>apple</td>
+                            <td>perfect@gmail.com</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>apple</td>
+                            <td>perfect@gmail.com</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>apple</td>
+                            <td>perfect@gmail.com</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td>apple</td>
+                            <td>perfect@gmail.com</td>
+                          </tr>
+                        </tbody>
+                        <!--Table body-->
+                  </table>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="form-group shadow-textarea">
+                  <label for="exampleFormControlTextarea6">Shadow and placeholder</label>
+                  <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="Write something here..."></textarea>
+                </div>
+            </div>
+          </div>
         </div>
-        <!--Grid column-->
       </div>
       <!--Grid row-->
 
@@ -156,6 +227,7 @@
 
   </script>
 
+  <script type="text/javascript" src="/../scripts/mailbox/inbox.js"></script>
 </body>
 
 </html>

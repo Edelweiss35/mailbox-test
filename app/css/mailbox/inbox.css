@@ -1,0 +1,55 @@
+.btn[class*=btn-outline-] {
+    padding-top: 0.1rem;
+    padding-bottom: .1rem;
+    width: 100%;
+    text-align: left;
+}
+
+.btn .badge {
+    position: relative;
+    top: 3px;
+    float: right;
+}
+
+.badge-primary {
+    background-color: #7f04fc!important;
+}
+
+.btn {
+    padding: 0.84rem 1.14rem;
+}
+
+.tr-color-selected{
+    background-color: hsla(196, 77%, 55%, 0.3) !important;
+    transition: all .2s ease-in;
+}
+
+.table {
+    width: 100%;
+}
+
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+
+.grey.lighten-3 {
+    background-color: transparent;
+}
+
+.grey {
+    background-color: transparent;
+}
+
+.shadow-textarea textarea.form-control {
+    height: 350px;
+}
+@media (min-width: 768px){
+    .col-md-3 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 200px;
+    }
+}

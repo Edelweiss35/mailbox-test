@@ -1,5 +1,5 @@
 {
-  "name": "google-rank",
+  "name": "google_rank",
   "version": "1.0.0",
   "description": "Get Google Rank",
   "main": "server.js",
@@ -29,14 +29,5 @@
   },
   "engines": {
     "node": "10.x"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Edelweiss35/mailbox-test.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Edelweiss35/mailbox-test/issues"
-  },
-  "homepage": "https://github.com/Edelweiss35/mailbox-test#readme"
+  }
 }
