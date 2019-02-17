@@ -126,8 +126,8 @@ app.get('/google/authorize',  passport.authenticate('google', {scope : [
 ] }));
 app.get('/google/callback',passport.authenticate('google', {successRedirect : '/mailbox/accounts/add',failureRedirect : '/'}));
 passport.use(new GoogleStrategy({
-  clientID        : "728767282076-ah2lcr6g8gna7hg2g2kfcrj8rno9le5s.apps.googleusercontent.com",
-  clientSecret    : "ejpJaeagoaYm0QKy3Pz82msk",
+  clientID        : "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
+  clientSecret    : "4KUG-B_pIN_GHqMISTz2sOuN",
   //callbackURL     : "http://cuteleads.herokuapp.com/google/callback",
   callbackURL     : "http://127.0.0.1:8080/google/callback",
 },

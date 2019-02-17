@@ -1,5 +1,5 @@
 {
-  "name": "google_rank",
+  "name": "google-rank",
   "version": "1.0.0",
   "description": "Get Google Rank",
   "main": "server.js",
@@ -19,6 +19,7 @@
     "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-google-auth": "^1.0.2",
+    "passport-google-oauth2": "^0.1.6",
     "passport-oauth2": "^1.4.0",
     "popup-tools": "^1.0.2",
     "puppeteer": "^1.11.0",
@@ -28,5 +29,14 @@
   },
   "engines": {
     "node": "10.x"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edelweiss35/mailbox-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Edelweiss35/mailbox-test/issues"
+  },
+  "homepage": "https://github.com/Edelweiss35/mailbox-test#readme"
 }
