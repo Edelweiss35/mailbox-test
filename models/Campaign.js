@@ -15,6 +15,14 @@ const CampaignSchema = new Schema({
     text: String
 });
 
+CampaignSchema.statics.getInbox = function(){
+	return this.find();
+}
+
+CampaignSchema.statics.saveInbox = function(user, namefrom, emailaddressfrom, to, subject, text){
+    return this.create({ user, namefrom, emailaddressfrom, to, subject, text });
+}
+
 var Campaign =  mongoose.model('CampaignSchema', CampaignSchema);
 
 module.exports = Campaign;

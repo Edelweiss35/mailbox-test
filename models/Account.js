@@ -6,13 +6,16 @@ const { Schema } = mongoose;
      Account Schema
 */
 
-const AccountSchema = new Schema({
+const UserSchema = new Schema({
     id: String,
     token: String,
     name: String,
     email: String
 });
 
-var Account =  mongoose.model('AccountSchema', AccountSchema);
+UserSchema.statics.getAccount = function(){
+	return this.find();
+}
+var User =  mongoose.model('UserSchema', UserSchema);
 
-module.exports = Account;
+module.exports = User;

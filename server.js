@@ -30,6 +30,7 @@ var Sheet = require('./models/Sheet');
 var ExDomain = require('./models/ExDomain');
 var User = require('./models/Account');
 var Campaign = require('./models/Campaign');
+var Message = require('./models/Message');
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -125,12 +126,13 @@ app.get('/google/authorize',  passport.authenticate('google', {scope : [
   'https://www.googleapis.com/auth/gmail.modify',
   'https://www.googleapis.com/auth/gmail.settings.basic'
 ] }));
+
 app.get('/google/callback',passport.authenticate('google', {successRedirect : '/mailbox/accounts/add',failureRedirect : '/'}));
 passport.use(new GoogleStrategy({
   clientID        : "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
   clientSecret    : "4KUG-B_pIN_GHqMISTz2sOuN",
-  //callbackURL     : "http://cuteleads.herokuapp.com/google/callback",
-  callbackURL     : "http://127.0.0.1:8080/google/callback",
+  //callbackURL     : http://127.0.0.1:8080/google/callback",
+  callbackURL     : "https://cuteleads.herokuapp.com/google/callback",
 },
 function(token, refreshToken, profile, done) {
 
@@ -149,15 +151,48 @@ function(token, refreshToken, profile, done) {
         const oAuth2Client = new google.auth.OAuth2(
           "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
           "4KUG-B_pIN_GHqMISTz2sOuN",
-          "http://127.0.0.1:8080/google/callback"
+          "https://cuteleads.herokuapp.com/google/callback"
         )
                
         oAuth2Client.credentials = {access_token: token}
         const gmail = google.gmail({version: 'v1'});
       //  gmail.users.getProfile({ userId: user.id, auth: oAuth2Client },
+        Message.removeAll();
         gmail.users.messages.list({ userId: user.id, auth: oAuth2Client,q:'before:2019/02/15 after:2019/02/01' },
             function(err, response) {
-              console.log(response.data)
+              console.log(response.data);
+              var nCnt = response.data.messages.length;
+              
+              for (var i = 0; i < nCnt; i++) {
+                var message_id = response['data']['messages'][i]['id'];
+                gmail.users.messages.get({auth: oAuth2Client, userId: 'me', 'id': message_id}, function(err, response) {
+                  if (err) {
+                      console.log('The API returned an error: ' + err);
+                      return;
+                  }
+         
+                 console.log(response['data']);
+                 
+                 var newMsg          = new Message();
+                
+                  // set all of the relevant information
+                  newMsg.id    = response['data'].id;
+                  newMsg.threadId = response['data'].threadId;
+                  newMsg.snippet  = response['data'].snippet;
+                  newMsg.historyId = response['data'].historyId; // pull the first email
+                  newMsg.date = response['headers'].date;
+                  // save the user
+                  newMsg.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, newMsg);
+                  });
+              });
+              }
+ 
+              // Retreive the actual message using the message id
+              
+              
               res.send(response);
           });
        /***************************************************** */   
@@ -198,7 +233,7 @@ app.get('/google/gmailInbox', async function(req, res){
   const oAuth2Client = new google.auth.OAuth2(
     "410833159801-v4ed124qchf92d0ephe7h7otvp23o7ia.apps.googleusercontent.com",
     "4KUG-B_pIN_GHqMISTz2sOuN",
-    "http://127.0.0.1:8080/google/callback"
+    "https://cuteleads.herokuapp.com/google/callback"
   )
   oAuth2Client.credentials = {access_token: token}
   const gmail = google.gmail({version: 'v1'});
@@ -209,24 +244,18 @@ app.get('/google/gmailInbox', async function(req, res){
     });
 })
 
-app.post('/mailbox/accounts', function (req, res) {
-  var nCnt = 0;
-  nCnt =  User.count();
-  
-});
-
 app.post('/mailbox/campaigns', function (req, res) {
   let transporter = nodeMailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
       auth: {
-          user: 'cui2020high@gmail.com',
-          pass: 'skwgkftys123456789'
+          user: 'email.address',
+          pass: 'user.password'
       }
   });
   let mailOptions = {
-      from: '"Krunal Lathiya" <elisakylie0618@outlook.com>', // sender address
+      from: '"user.name" <email.address>', // sender address
       to: req.body.to, // list of receivers
       subject: req.body.subject, // Subject line
       text: req.body.body, // plain text body
@@ -234,17 +263,17 @@ app.post('/mailbox/campaigns', function (req, res) {
 
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-          return console.log(error);
+        return console.log(error);
       }
 
       console.log('Message %s sent: %s', info.messageId, info.response);
 
-      var newCampaign = new Campaign();yeah
+      var newCampaign = new Campaign();
 
       // set all of the relevant information
-      newCampaign.user = 'cui2020high@gmail.com';
-      newCampaign.namefrom = 'Krunal Lathiya';
-      newCampaign.emailaddressfrom = 'elisakylie0618@outlook.com';
+      newCampaign.user = 'email.address';
+      newCampaign.namefrom = 'user.name';
+      newCampaign.emailaddressfrom = 'email.address.from';
       newCampaign.to = req.body.to;
       newCampaign.subject = req.body.subject;
       newCampaign.text = req.body.body;
@@ -264,6 +293,16 @@ app.post('/mailbox/campaigns', function (req, res) {
 
 app.get('/getCSVData', async function (req, res) {
   var result = await Sheet.getSheets();
+  res.json(result);
+});
+
+app.get('/getInbox', async function (req, res) {
+  var result = await Message.getMessage();
+  res.json(result);
+});
+
+app.get('/getAccount', async function (req, res) {
+  var result = await User.getAccount();
   res.json(result);
 });
 
